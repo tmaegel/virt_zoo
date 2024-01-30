@@ -1,2 +1,5 @@
 -c requirements.txt
+django-stubs[compatible-mypy]
+djangorestframework-stubs[compatible-mypy]
+markdown
 pip-tools
