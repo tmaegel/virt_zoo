@@ -1,23 +1,23 @@
 export type Animal = {
-  id: Number;
+  id: Number | undefined;
   name: string;
   weight: Number;
   capability: string;
-  extinctSince: Date;
+  extinctSince: Number;
 };
 
 export type AnimalPayload = {
-  id: Number;
+  id: Number | undefined;
   name: string;
   weight: Number;
   capability: string;
-  extinct_since: string;
+  extinct_since: Number;
 };
 
 export function serialize(animal: Animal): AnimalPayload {
   const { extinctSince, ...rest } = animal;
   return {
-    extinct_since: extinctSince.toISOString(),
+    extinct_since: extinctSince,
     ...rest,
   };
 }
@@ -25,7 +25,7 @@ export function serialize(animal: Animal): AnimalPayload {
 export function deserialize(animalPayload: AnimalPayload): Animal {
   const { extinct_since, ...rest } = animalPayload;
   return {
-    extinctSince: new Date(extinct_since),
+    extinctSince: extinct_since,
     ...rest,
   };
 }

@@ -6,7 +6,7 @@ class Animal(models.Model):
     name = models.CharField(max_length=128)
     weight = models.FloatField()
     capability = models.CharField(max_length=128)
-    extinct_since = models.DateField()
+    extinct_since = models.BigIntegerField()
 
 
 class AnimalSerializer(serializers.ModelSerializer):

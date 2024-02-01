@@ -1,5 +1,4 @@
 import json
-from datetime import date
 
 from django.test import TestCase
 from django.urls import reverse
@@ -19,13 +18,13 @@ class AnimalApiTest(TestCase):
             name="Säbelzahntiger",
             weight=350.0,
             capability="Große Zähne",
-            extinct_since=date(1900, 1, 1),
+            extinct_since=65000000,
         )
         Animal.objects.create(
             name="Mammut",
             weight=15000,
             capability="Große Stoßzähne",
-            extinct_since=date(1500, 1, 1),
+            extinct_since=65000000,
         )
 
     def test_animal_list(self):
@@ -53,7 +52,7 @@ class AnimalApiTest(TestCase):
                 "name": "T-Rex",
                 "weight": 18000,
                 "capability": "Scharfe Zähne",
-                "extinct_since": date(1500, 1, 1),
+                "extinct_since": 8000000,
             },
             content_type="application/json",
         )
