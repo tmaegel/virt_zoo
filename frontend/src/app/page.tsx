@@ -50,6 +50,7 @@ export default function Home() {
   };
 
   const onEdit = (model: Animal) => {
+    setData(data.map((obj) => (obj.id === model.id ? { ...model } : obj)));
     setNotification("Erfolgreich bearbeitet!");
   };
 
@@ -74,6 +75,14 @@ export default function Home() {
         <CreateEditDialog
           onClose={() => setCreate(false)}
           onSuccess={onCreate}
+          onError={(error) => setNotification(error.message)}
+        />
+      )}
+      {edit && (
+        <CreateEditDialog
+          model={edit}
+          onClose={() => setEdit(null)}
+          onSuccess={onEdit}
           onError={(error) => setNotification(error.message)}
         />
       )}
@@ -110,7 +119,7 @@ export default function Home() {
                     <TableRow
                       key={obj.id!.toString()}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 }, cursor: "pointer" }}
-                      onClick={() => onEdit(obj)}
+                      onClick={() => setEdit(obj)}
                       hover={true}
                     >
                       <TableCell component="th" scope="row">

@@ -1,5 +1,5 @@
 export type Animal = {
-  id: Number | undefined;
+  id?: Number;
   name: string;
   weight: Number;
   capability: string;
@@ -7,7 +7,7 @@ export type Animal = {
 };
 
 export type AnimalPayload = {
-  id: Number | undefined;
+  id?: Number;
   name: string;
   weight: Number;
   capability: string;

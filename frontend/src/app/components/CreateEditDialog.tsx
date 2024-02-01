@@ -6,24 +6,42 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import { Animal } from "../models/Animal";
-import { create, ApiError } from "../api/AnimalApi";
+import { create, update, ApiError } from "../api/AnimalApi";
 import Box from "@mui/material/Box";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 type Props = {
+  model?: Animal;
   onClose: () => void;
   onSuccess: (model: Animal) => void;
   onError: (error: Error | ApiError) => void;
 };
 
-export default function CreateEditDialog({ onClose, onSuccess, onError }: Props) {
+export default function CreateEditDialog({ model, onClose, onSuccess, onError }: Props) {
   const [name, setName] = useState("");
   const [weight, setWeight] = useState("");
   const [capability, setCabability] = useState("");
   const [extinctSince, setExtinctSince] = useState("");
 
+  useEffect(() => {
+    if (model) {
+      setName(model.name);
+      setWeight(model.weight.toString());
+      setCabability(model.capability);
+      setExtinctSince(model.extinctSince.toString());
+    }
+  }, []);
+
   const onSubmit = () => {
-    let model: Animal = {
+    if (model) {
+      onUpdate();
+    } else {
+      onCreate();
+    }
+  };
+
+  const onCreate = () => {
+    let newModel: Animal = {
       id: undefined,
       name: name,
       weight: parseFloat(weight),
@@ -31,7 +49,29 @@ export default function CreateEditDialog({ onClose, onSuccess, onError }: Props)
       extinctSince: parseInt(extinctSince),
     };
     try {
-      create(model).then((res) => {
+      create(newModel).then((res) => {
+        if (res instanceof ApiError) {
+          onError(res);
+        } else {
+          onSuccess(res);
+        }
+        onClose();
+      });
+    } catch (e) {
+      onError(new Error(`ERROR: ${(e as Error).message}`));
+    }
+  };
+
+  const onUpdate = () => {
+    let newModel: Animal = {
+      id: model!.id,
+      name: name,
+      weight: parseFloat(weight),
+      capability: capability,
+      extinctSince: parseInt(extinctSince),
+    };
+    try {
+      update(newModel).then((res) => {
         if (res instanceof ApiError) {
           onError(res);
         } else {
@@ -125,9 +165,7 @@ export default function CreateEditDialog({ onClose, onSuccess, onError }: Props)
       </DialogContent>
       <DialogActions>
         <Box sx={{ marginBottom: 2, marginRight: 1 }}>
-          <Button autoFocus onClick={onClose}>
-            Abbruch
-          </Button>
+          <Button onClick={onClose}>Abbruch</Button>
           <Button
             onClick={onSubmit}
             disabled={!name || !isFloat(weight) || !weight || !capability || !isInteger(extinctSince) || !extinctSince}

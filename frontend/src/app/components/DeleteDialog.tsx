@@ -17,7 +17,7 @@ type Props = {
 export default function DeleteDialog({ model, onClose, onSuccess, onError }: Props) {
   const handleConfirm = () => {
     if (model.id) {
-      remove(model.id).then((res) => {
+      remove(model).then((res) => {
         if (res instanceof ApiError) {
           onError(res);
         } else {
