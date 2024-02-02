@@ -221,3 +221,4 @@ venv.bak/
 .mypy_cache/
 
 node_modules/
+*.pdf
