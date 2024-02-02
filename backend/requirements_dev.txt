@@ -16,6 +16,8 @@ charset-normalizer==3.3.2
     # via requests
 click==8.1.7
     # via pip-tools
+coverage==7.4.1
+    # via -r requirements_dev.in
 django==4.2.9
     # via
     #   -c requirements.txt

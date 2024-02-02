@@ -13,3 +13,7 @@ migrate:
 
 superuser: migrate
 	python manage.py createsuperuser --username admin
+
+test:
+	coverage run --source='.' manage.py test
+	coverage report

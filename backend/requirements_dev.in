@@ -1,4 +1,5 @@
 -c requirements.txt
+coverage
 django-stubs[compatible-mypy]
 djangorestframework-stubs[compatible-mypy]
 markdown
