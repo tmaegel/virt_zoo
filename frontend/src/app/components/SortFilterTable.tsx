@@ -82,7 +82,10 @@ export default function SortFilterTable({ data, searchTerm, editHandler, removeH
           <TableBody>
             {data
               .slice()
-              .filter((obj) => obj.name.includes(searchTerm) || obj.capability.includes(searchTerm))
+              .filter(
+                (obj) =>
+                  obj.name.toLowerCase().includes(searchTerm) || obj.capability.toLowerCase().includes(searchTerm),
+              )
               .sort(getComparator(order, orderBy))
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((obj) => (

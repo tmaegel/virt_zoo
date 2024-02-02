@@ -9,7 +9,7 @@ export default function SearchField({ searchHandler }: Props) {
   const [value, setValue] = useState("");
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => searchHandler(value), 1000);
+    const timeoutId = setTimeout(() => searchHandler(value.toLowerCase()), 1000);
     return () => clearTimeout(timeoutId);
   }, [value]);
 
