@@ -1,7 +1,21 @@
-"use client";
-
+import { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 
-export default function SearchField() {
-  return <TextField type="text" fullWidth={true} placeholder="Suche ..." />;
+type Props = {
+  searchHandler: (value: string) => void;
+};
+
+export default function SearchField({ searchHandler }: Props) {
+  const [value, setValue] = useState("");
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => searchHandler(value), 1000);
+    return () => clearTimeout(timeoutId);
+  }, [value]);
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+  };
+
+  return <TextField type="text" placeholder="Suchen" fullWidth={true} value={value} onChange={onChange} />;
 }

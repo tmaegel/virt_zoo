@@ -16,6 +16,7 @@ export default function Home() {
   const [data, setData] = useState<Animal[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [notification, setNotification] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
   const [create, setCreate] = useState(false);
   const [remove, setRemove] = useState<Animal | null>(null);
   const [edit, setEdit] = useState<Animal | null>(null);
@@ -80,10 +81,10 @@ export default function Home() {
           <CreateButton onCreate={() => setCreate(true)} />
         </Grid>
         <Grid item xs={12}>
-          <SearchField />
+          <SearchField searchHandler={setSearch} />
         </Grid>
         <Grid item xs={12}>
-          <SortFilterTable data={data} editHandler={setEdit} removeHandler={setRemove} />
+          <SortFilterTable data={data} searchTerm={search} editHandler={setEdit} removeHandler={setRemove} />
         </Grid>
       </Grid>
     </div>

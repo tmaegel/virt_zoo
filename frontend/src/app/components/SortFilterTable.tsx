@@ -44,6 +44,7 @@ function getComparator(order: Order, orderBy: string): (a: Animal, b: Animal) =>
 
 type SortFilterTableProps = {
   data: Animal[];
+  searchTerm: string;
   editHandler: (model: Animal) => void;
   removeHandler: (model: Animal) => void;
 };
@@ -54,7 +55,7 @@ type SortableTableHeadProps = {
   onRequestSort: (event: React.MouseEvent<unknown>, property: string) => void;
 };
 
-export default function SortFilterTable({ data, editHandler, removeHandler }: SortFilterTableProps) {
+export default function SortFilterTable({ data, searchTerm, editHandler, removeHandler }: SortFilterTableProps) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [order, setOrder] = useState<Order>("asc");
@@ -81,6 +82,7 @@ export default function SortFilterTable({ data, editHandler, removeHandler }: So
           <TableBody>
             {data
               .slice()
+              .filter((obj) => obj.name.includes(searchTerm) || obj.capability.includes(searchTerm))
               .sort(getComparator(order, orderBy))
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((obj) => (
