@@ -1,3 +1,5 @@
-django>=4.2,<5
 django-cors-headers
+django>=4.2,<5
 djangorestframework
+gunicorn
+psycopg[binary]

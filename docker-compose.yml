@@ -1,0 +1,38 @@
+---
+
+services:
+  db:
+    image: postgres:16
+    container_name: vz_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: virt_zoo
+    user: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  api:
+    build: backend/
+    image: vz_django_api
+    container_name: vz_api
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8000:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-fs", "-S", "--max-time", "2", "http://localhost:8000/animal"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  db_data:
