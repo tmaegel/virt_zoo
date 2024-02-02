@@ -25,5 +25,5 @@ router.register(r"animal", AnimalViewSet)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include(router.urls)),
+    path("api/", include(router.urls)),
 ]

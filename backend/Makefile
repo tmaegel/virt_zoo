@@ -5,9 +5,6 @@ compile:
 install_dev:
 	pip install -r requirements_dev.txt -r requirements.txt
 
-run_dev:
-	python manage.py runserver
-
 migrate:
 	python manage.py migrate
 

@@ -1,3 +1,5 @@
+import sys
+
 from django.db import migrations, models
 
 animals = [
@@ -79,6 +81,10 @@ def insert_animals(apps, schema_editor):
 class Migration(migrations.Migration):
     dependencies = [("animal", "0001_initial")]
 
-    operations = [
-        migrations.RunPython(insert_animals),
-    ]
+    operations = (
+        [
+            migrations.RunPython(insert_animals),
+        ]
+        if "test" not in sys.argv
+        else []
+    )
