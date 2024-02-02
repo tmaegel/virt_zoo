@@ -1,3 +1,4 @@
+import { base, host, port } from "../config";
 import { Animal, deserialize, serialize } from "../models/Animal";
 
 export class ApiError extends Error {
@@ -8,7 +9,7 @@ export class ApiError extends Error {
 }
 
 export async function list(): Promise<Animal[]> {
-  return fetch(`http://127.0.0.1:8000/api/animal`)
+  return fetch(`http://${host}:${port}${base}/animal`)
     .then(async (res) => {
       if (res.ok) {
         return (await res.json()).map(deserialize);
@@ -25,7 +26,7 @@ export async function list(): Promise<Animal[]> {
 }
 
 export async function create(model: Animal): Promise<Animal | ApiError> {
-  return fetch("http://127.0.0.1:8000/api/animal", {
+  return fetch(`http://${host}:${port}${base}/animal`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -48,7 +49,7 @@ export async function create(model: Animal): Promise<Animal | ApiError> {
 }
 
 export async function update(model: Animal): Promise<Animal | ApiError> {
-  return fetch(`http://127.0.0.1:8000/api/animal/${model.id}`, {
+  return fetch(`http://${host}:${port}${base}/animal/${model.id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -71,7 +72,7 @@ export async function update(model: Animal): Promise<Animal | ApiError> {
 }
 
 export async function remove(model: Animal): Promise<ApiError | void> {
-  return fetch(`http://127.0.0.1:8000/api/animal/${model.id}`, {
+  return fetch(`http://${host}:${port}${base}/animal/${model.id}`, {
     method: "DELETE",
   })
     .then(async (res) => {
