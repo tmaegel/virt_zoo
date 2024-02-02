@@ -57,7 +57,7 @@ type SortableTableHeadProps = {
 
 export default function SortFilterTable({ data, searchTerm, editHandler, removeHandler }: SortFilterTableProps) {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState("name"); // id of tableHeadCells
 
@@ -136,8 +136,8 @@ function SortableTableHead({ order, orderBy, onRequestSort }: SortableTableHeadP
       label: "Fähigkeit",
     },
     {
-      id: "Ausgestorben seit (Jahre)",
-      label: "extinctSince",
+      id: "extinctSince",
+      label: "Ausgestorben seit (Jahre)",
     },
   ];
 
