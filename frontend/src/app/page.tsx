@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
 import CreateButton from "./components/CreateButton";
 import CreateEditDialog from "./components/CreateEditDialog";
 import DeleteDialog from "./components/DeleteDialog";
@@ -9,6 +11,8 @@ import NotificationBar from "./components/NotificationBar";
 import SearchField from "./components/SearchField";
 import SortFilterTable from "./components/SortFilterTable";
 import Spinner from "./components/Spinner";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
 import { Animal } from "./models/Animal";
 import { list, ApiError } from "./api/AnimalApi";
 
@@ -52,6 +56,17 @@ export default function Home() {
 
   return (
     <div>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+          <Toolbar>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              Virtueller Zoo
+            </Typography>
+            <SearchField searchHandler={setSearch} />
+            <CreateButton onCreate={() => setCreate(true)} />
+          </Toolbar>
+        </AppBar>
+      </Box>
       {notification && <NotificationBar message={notification} onClose={() => setNotification(null)} />}
       {create && (
         <CreateEditDialog
@@ -76,17 +91,7 @@ export default function Home() {
           onError={(error) => setNotification(error.message)}
         />
       )}
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <CreateButton onCreate={() => setCreate(true)} />
-        </Grid>
-        <Grid item xs={12}>
-          <SearchField searchHandler={setSearch} />
-        </Grid>
-        <Grid item xs={12}>
-          <SortFilterTable data={data} searchTerm={search} editHandler={setEdit} removeHandler={setRemove} />
-        </Grid>
-      </Grid>
+      <SortFilterTable data={data} searchTerm={search} editHandler={setEdit} removeHandler={setRemove} />
     </div>
   );
 }

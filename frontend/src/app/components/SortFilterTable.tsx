@@ -1,6 +1,5 @@
 import { useState } from "react";
 import DeleteButton from "./DeleteButton";
-import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -75,7 +74,7 @@ export default function SortFilterTable({ data, searchTerm, editHandler, removeH
   };
 
   return (
-    <Paper>
+    <>
       <TableContainer>
         <Table>
           <SortableTableHead order={order} orderBy={orderBy} onRequestSort={handleRequestSort} />
@@ -118,7 +117,7 @@ export default function SortFilterTable({ data, searchTerm, editHandler, removeH
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />{" "}
-    </Paper>
+    </>
   );
 }
 

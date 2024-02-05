@@ -6,7 +6,7 @@ type Props = {
 
 export default function CreateButton({ onCreate }: Props) {
   return (
-    <Button variant="outlined" onClick={onCreate}>
+    <Button variant="outlined" color="inherit" onClick={onCreate}>
       Erstellen
     </Button>
   );
